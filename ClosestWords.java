@@ -12,16 +12,20 @@ public class ClosestWords {
   String prevWord = "";
 
   int Distance(String w1, String w2) {
-	int matching = 0;
-	for (int i = 0; i < Math.min(prevWord.length(), w2.length()); i++){
-	    if (w1.charAt(i) == w2.charAt(i)) {
- 		    matching++;
+    int matching = 0;
+    int minLen = Math.min(prevWord.length(), w2.length());
+    int w2Len = w2.length() + 1;
+    for (int i = 0; i < minLen; i++){
+        if (w1.charAt(i) == w2.charAt(i)) {
+            matching++;
+        } else {
+            break;
         }
     }
-    for (int j = matching + 1; j <  w2.length() + 1; j++){
+    for (int j = matching + 1; j < w2Len; j++){
         matrix[0][j] = j;
     }
-    for(int j = matching + 1; j < w2.length() +1; j++) {
+    for(int j = matching + 1; j < w2Len; j++) {
         for(int i = matching + 1; i < matrix.length; i++){
             if (w1.charAt(i-1) == w2.charAt(j-1)){
                 matrix[i][j] = matrix[i-1][j-1];
@@ -29,14 +33,8 @@ public class ClosestWords {
                 matrix[i][j] = Math.min(Math.min((matrix[i][j-1]+1),(matrix[i-1][j]+1)), (matrix[i-1][j-1]+1));
             }
         }
-       // for (int i = 1; i < matrix.length; i++){
-       //   System.out.print(matrix[i][j]);
-       // }
-       // System.out.println();
     }
-    //System.out.println();
     return matrix[w1.length()][w2.length()];
-    //return partDist(w1, w2, w1.length(), w2.length());
   }
 
   public ClosestWords(String w, List<String> wordList) {
@@ -48,7 +46,6 @@ public class ClosestWords {
 
     for (String s : wordList) {
       int dist = Distance(w, s);
-      // System.out.println("d(" + w + "," + s + ")=" + dist);
       if (dist < closestDistance || closestDistance == -1) {
         closestDistance = dist;
         closestWords = new LinkedList<String>();
