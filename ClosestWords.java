@@ -13,10 +13,10 @@ public class ClosestWords {
 
   int Distance(String w1, String w2) {
     int matching = 0;
-    int minLen = Math.min(prevWord.length(), w2.length());
+    int minLen = (prevWord.length() > w2.length()) ? w2.length() : prevWord.length();
     int w2Len = w2.length() + 1;
     for (int i = 0; i < minLen; i++){
-        if (w1.charAt(i) == w2.charAt(i)) {
+        if (prevWord.charAt(i) == w2.charAt(i)) {
             matching++;
         } else {
             break;
@@ -26,7 +26,7 @@ public class ClosestWords {
         matrix[0][j] = j;
     }
     for(int j = matching + 1; j < w2Len; j++) {
-        for(int i = matching + 1; i < matrix.length; i++){
+        for(int i = 1; i < matrix.length; i++){
             if (w1.charAt(i-1) == w2.charAt(j-1)){
                 matrix[i][j] = matrix[i-1][j-1];
             } else {
@@ -34,6 +34,7 @@ public class ClosestWords {
             }
         }
     }
+    prevWord = w2;	
     return matrix[w1.length()][w2.length()];
   }
 
