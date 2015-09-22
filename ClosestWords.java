@@ -9,20 +9,20 @@ public class ClosestWords {
 
   int closestDistance = -1;
   int[][] matrix;
-  String prevWord;
+  String prevWord = "";
 
   int Distance(String w1, String w2) {
 	int matching = 0;
-	for (int i = 0; i < Math.min(w1.length(), w2.length()); i++){
-	   if (w1.charAt(i) == w2.charAt(i)) {
- 		matching++;
-           }
+	for (int i = 0; i < Math.min(prevWord.length(), w2.length()); i++){
+	    if (w1.charAt(i) == w2.charAt(i)) {
+ 		    matching++;
         }
-    for (int j = 0; j <  matrix[0].length; j++){
+    }
+    for (int j = matching + 1; j <  w2.length() + 1; j++){
         matrix[0][j] = j;
     }
-    for(int j = 1; j < w2.length() +1; j++) {
-        for(int i = 1; i < matrix.length; i++){
+    for(int j = matching + 1; j < w2.length() +1; j++) {
+        for(int i = matching + 1; i < matrix.length; i++){
             if (w1.charAt(i-1) == w2.charAt(j-1)){
                 matrix[i][j] = matrix[i-1][j-1];
             } else {
@@ -41,7 +41,7 @@ public class ClosestWords {
 
   public ClosestWords(String w, List<String> wordList) {
     // Create a matrix based on the misspelled word
-    matrix = new int[w.length() + 1][100];
+    matrix = new int[w.length() + 1][40];
     for (int i = 0; i < matrix.length; i++){
         matrix[i][0] = i;
     }
