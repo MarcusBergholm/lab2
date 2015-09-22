@@ -12,6 +12,12 @@ public class ClosestWords {
   String prevWord;
 
   int Distance(String w1, String w2) {
+	int matching = 0;
+	for (int i = 0; i < Math.min(w1.length(), w2.length()); i++){
+	   if (w1.charAt(i) == w2.charAt(i)) {
+ 		matching++;
+           }
+        }
     for (int j = 0; j <  matrix[0].length; j++){
         matrix[0][j] = j;
     }
