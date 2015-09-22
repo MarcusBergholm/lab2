@@ -26,6 +26,13 @@ public class ClosestWords {
   }
 
   int Distance(String w1, String w2) {
+	int matching = 0; 
+	for (int i = 0; i < Math.min(w1.length(), w2.length()); i++){
+	   if (w1.charAt(i) == w2.charAt(i)) {
+ 		matching++;
+           }
+        }
+	System.out.println(matching);
     int[][] matrix = new int[w1.length()+1 ][w2.length()+1];
     for (int i = 0; i < matrix.length; i++){
         matrix[i][0] = i;
@@ -62,7 +69,7 @@ public class ClosestWords {
       }
       else if (dist == closestDistance)
         closestWords.add(s);
-    }
+    }	
   }
 
   int getMinDistance() {
